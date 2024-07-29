@@ -16,9 +16,18 @@ const add = (numbers) => {
     const tokenizedNums = numbers.split(delimiter).map(Number);
     let sum = 0;
     console.log(tokenizedNums)
+    const negativeNumberList = []
     tokenizedNums.forEach(element => {
-        sum += element;
+        if(element<0){
+            negativeNumberList.push(element)
+        }else{
+            sum += element;
+        }
     });
+    if(negativeNumberList.length>0){
+        let errorMessage = `negative numbers not allowed: ${negativeNumberList.join(',')}`;
+        throw new Error(errorMessage);
+    }
     return sum;
 }
 module.exports = {

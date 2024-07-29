@@ -35,3 +35,19 @@ test('handling different delimiters (3) (multiple slash n)', () => {
 test('handling different delimeters (3)', () => {
   expect(add('//,\n1,2')).toBe(3);
 });
+
+test('do not alloww negative numbers ', () => {
+  expect(() => add('1,-2,3')).toThrow('negative numbers not allowed: -2');
+});
+
+test('do not alloww negative numbers with delimiter and slash n', () => {
+  expect(() => add('//;;\n\n\n\n\n-1;;\n2')).toThrow('negative numbers not allowed: -1');
+});
+
+test('do not alloww negative numbers (more than one negative numbers)', () => {
+  expect(() => add('1,-2,-3')).toThrow('negative numbers not allowed: -2,-3');
+});
+
+test('do not alloww negative numbers with delimiter and slash n', () => {
+  expect(() => add('//;;\n\n\n\n\n-1;;2;;\n-3')).toThrow('negative numbers not allowed: -1,-3');
+});
