@@ -51,3 +51,7 @@ test('do not alloww negative numbers (more than one negative numbers)', () => {
 test('do not alloww negative numbers with delimiter and slash n', () => {
   expect(() => add('//;;\n\n\n\n\n-1;;2;;\n-3')).toThrow('negative numbers not allowed: -1,-3');
 });
+
+test('do multiplication on - as delimiter', () => {
+  expect(add('//-\n2-3')).toBe(6);
+});
