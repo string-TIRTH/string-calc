@@ -1,34 +1,36 @@
 
+const extractDelimiter = (numbers) => {
+    const delimiterEndIndex = numbers.indexOf('\n');
+    delimiter = new RegExp(numbers.substring(2, delimiterEndIndex)); // setting delimiter based on given delimiter
+    return delimiter;
+}
 const add = (numbers) => {
-    if(numbers === ""){
+    if(numbers === ""){ // handling empty string case
         return 0;
     }
-    let doMult = false;
+    let doMult = false; // flag to determine wheather we have to do sum or mult
     let delimiter = ","; // initally seperated by , 
     if (numbers.startsWith('//')) {
         const delimiterEndIndex = numbers.indexOf('\n');
-        delimiter = new RegExp(numbers.substring(2, delimiterEndIndex)); // setting delimiter based on given delimiter
-        console.log(delimiter)
-        if(delimiter == "/-/"){
+        delimiter = extractDelimiter(numbers) // extracting delimiter from given input string
+        if(delimiter == "/-/"){ // - delimiter for doing multiplication 
             doMult=true;
         }
-        console.log(delimiter)
         numbers = numbers.substring(delimiterEndIndex + 1);
     } else {
         numbers = numbers.replace(/[\n,]/g, ',');
     }
-    console.log(numbers)
-    const tokenizedNums = numbers.split(delimiter).map(Number);
+    const tokenizedNums = numbers.split(delimiter).map(Number); // tokenizing numbers based on delimiter
     let sum = 0;
     let mult = 1;
     console.log(tokenizedNums)
     const negativeNumberList = []
     tokenizedNums.forEach(element => {
         if(element<0){
-            negativeNumberList.push(element)
-        }else if(doMult){
+            negativeNumberList.push(element) // pushing negative numbers for error message
+        }else if(doMult){ // doing multiplication 
             mult *= element;
-        }else{
+        }else {           // doing summation  
             sum += element;
         }
     });
